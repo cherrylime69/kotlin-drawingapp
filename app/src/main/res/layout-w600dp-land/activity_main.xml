@@ -20,8 +20,8 @@
     app:layout_constraintStart_toStartOf="parent"/>
   <com.codesquard.kotlin_drawingapp.CustomView
     android:id="@+id/customView"
-    android:layout_width="830dp"
-    android:layout_height="670dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintEnd_toStartOf="@+id/second_constraintLayout"
@@ -43,8 +43,7 @@
     android:layout_marginTop="20dp"
     android:layout_marginRight="100dp"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    />
+    app:layout_constraintTop_toTopOf="parent"/>
   <Button
     android:id="@+id/button_background"
     style="?attr/materialButtonOutlinedStyle"

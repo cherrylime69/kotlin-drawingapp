@@ -4,9 +4,10 @@ class Plane(private val listener: RectangleListener) {
 
     private val rectangleList = mutableListOf<Rectangle>()
 
-    fun createNewRectangle() {
+    fun createNewRectangle(width: Float, height: Float) {
         rectangleList.add(RectangleFactory().getInstance())
         val newRect = rectangleList[rectangleList.size - 1]
+        newRect.setSize(width.toInt(), height.toInt())
         listener.onCreateRectangle(newRect)
     }
 
@@ -19,8 +20,8 @@ class Plane(private val listener: RectangleListener) {
         unSelectRectangle(reversedRectList)
 
         reversedRectList.forEachIndexed { index, rect ->
-            val rectFirstX = rect.getPoint()[0] + 44
-            val rectFirstY = rect.getPoint()[1] + 7
+            val rectFirstX = rect.getPoint()[0]
+            val rectFirstY = rect.getPoint()[1] + 45
             val rectSecondX = rectFirstX + rect.getSize()[0]
             val rectSecondY = rectFirstY + rect.getSize()[1]
             val notReversedListIndex = reversedRectList.size - 1 - index

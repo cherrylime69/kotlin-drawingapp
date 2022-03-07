@@ -16,7 +16,7 @@ interface TaskContract {
     }
 
     interface Presenter {
-        fun addNewRectangle()
+        fun addNewRectangle(width: Float, height: Float)
 
         fun selectRectangle(x: Float, y: Float)
 

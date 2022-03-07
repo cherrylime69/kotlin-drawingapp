@@ -6,8 +6,8 @@ class TaskPresenter(private val taskView: TaskContract.TaskView) : TaskContract.
     private val plane = Plane(this)
     private var selectedRectIndex = -1
 
-    override fun addNewRectangle() {
-        plane.createNewRectangle()
+    override fun addNewRectangle(width: Float, height: Float) {
+        plane.createNewRectangle(width, height)
     }
 
     override fun selectRectangle(x: Float, y: Float) {

@@ -1,6 +1,7 @@
 package com.codesquard.kotlin_drawingapp
 
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
@@ -47,7 +48,9 @@ class MainActivity : AppCompatActivity(), TaskContract.TaskView {
     private fun onClickRectBtn() {
         firstBtn = findViewById(R.id.create_btn)
         firstBtn.setOnClickListener {
-            presenter.addNewRectangle()
+            val width = dp2px(150f)
+            val height = dp2px(120f)
+            presenter.addNewRectangle(width, height)
         }
     }
 
@@ -84,6 +87,12 @@ class MainActivity : AppCompatActivity(), TaskContract.TaskView {
         return super.onTouchEvent(event)
     }
 
+    private fun dp2px(dp: Float): Float {
+        val resources = this.resources
+        val metrics = resources.displayMetrics
+        return dp * (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
+
+    }
 }
 
 

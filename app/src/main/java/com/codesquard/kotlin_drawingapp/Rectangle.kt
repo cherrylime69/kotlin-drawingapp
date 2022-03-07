@@ -15,16 +15,10 @@ class RectangleFactory {
     }
 
     private fun setRectanglePoint() {
-        val pointX = (0..1500).random().toFloat()
-        val pointY = (100..1200).random().toFloat()
+        val pointX = (0..1200).random().toFloat()
+        val pointY = (0..1000).random().toFloat()
         rectangle.setPoint(pointX, pointY)
     }
-
-    /*private fun dp2px(dp: Float): Float {
-        val resources = mainActivity.resources
-        val metrics = resources.displayMetrics
-        return dp * (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
-    }*/
 
     private fun setRectangleSize() {
         val width = 150
@@ -104,6 +98,6 @@ class Rectangle {
     fun getID() = id
 
     override fun toString(): String {
-        return "(${id}), X:${point[0]}, Y:${point[1]}, W150, H120, R:${color[0]}, G:${color[1]}, B:${color[2]}, Alpha: ${alpha.toInt()}"
+        return "(${id}), X:${point[0]}, Y:${point[1]}, W150, H120, R:${color[0]}, G:${color[1]}, B:${color[2]}, Alpha: ${alpha}"
     }
 }
