@@ -3,4 +3,5 @@
   <string name="rectangle">사각형</string>
   <string name="background">배경색</string>
   <string name="alpha">투명도</string>
+  <string name="photo">사진</string>
 </resources>
