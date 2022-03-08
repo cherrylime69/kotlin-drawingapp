@@ -8,8 +8,8 @@ class TaskPresenter(private val taskView: TaskContract.TaskView) : TaskContract.
     private val plane = Plane(this)
     private var selectedRectIndex = -1
 
-    override fun addNewRectangle(width: Float, height: Float) {
-        plane.createNewRectangle(width, height)
+    override fun addNewRectangle(width: Float, height: Float, photo: Bitmap?) {
+        plane.createNewRectangle(width, height, photo)
     }
 
     override fun selectRectangle(x: Float, y: Float) {
@@ -22,10 +22,6 @@ class TaskPresenter(private val taskView: TaskContract.TaskView) : TaskContract.
 
     override fun changeColor() {
         plane.updateColor()
-    }
-
-    override fun addNewPhoto(photo: Bitmap, width: Float, height: Float) {
-        TODO("Not yet implemented")
     }
 
     override fun onCreateRectangle(newRect: Rectangle) {
@@ -48,13 +44,20 @@ class TaskPresenter(private val taskView: TaskContract.TaskView) : TaskContract.
     }
 
     private fun getRectColor() {
-        if (selectedRectIndex == -1) {
-            taskView.showRectColor()
-        } else {
-            val color = plane.getRectangle(selectedRectIndex).getColor()
-            val colorText =
-                "#${color[0].toString(16)}${color[1].toString(16)}${color[2].toString(16)}"
-            taskView.showRectColor(colorText)
+        when (true) {
+            selectedRectIndex == -1 -> taskView.showRectColor()
+            plane.getRectangle(selectedRectIndex) is PhotoRectangle -> {
+                val colorText = "None"
+                taskView.showRectColor(colorText)
+                taskView.showEnabledColor(false)
+            }
+            else -> {
+                val color = plane.getRectangle(selectedRectIndex).color
+                val colorText =
+                    "#${color[0].toString(16)}${color[1].toString(16)}${color[2].toString(16)}"
+                taskView.showRectColor(colorText)
+                taskView.showEnabledColor(true)
+            }
         }
     }
 
@@ -62,7 +65,7 @@ class TaskPresenter(private val taskView: TaskContract.TaskView) : TaskContract.
         if (selectedRectIndex == -1) {
             taskView.showRectAlpha()
         } else {
-            val alpha = plane.getRectangle(selectedRectIndex).getAlpha() / 25
+            val alpha = plane.getRectangle(selectedRectIndex).alphaValue / 25
             taskView.showRectAlpha(alpha.toFloat())
         }
     }

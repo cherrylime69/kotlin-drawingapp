@@ -1,13 +1,23 @@
 package com.codesquard.kotlin_drawingapp
 
+import android.graphics.Bitmap
+
 class Plane(private val listener: RectangleListener) {
 
     private val rectangleList = mutableListOf<Rectangle>()
+    private lateinit var newRect: Rectangle
 
-    fun createNewRectangle(width: Float, height: Float) {
-        rectangleList.add(RectangleFactory().getInstance())
-        val newRect = rectangleList[rectangleList.size - 1]
+    fun createNewRectangle(width: Float, height: Float, photo: Bitmap? = null) {
+        photo?.run {
+            val photoRect = PhotoRectangle()
+            photoRect.setBitmap(this)
+            newRect = photoRect
+        } ?: run {
+            newRect = NormalRectangle()
+        }
+        newRect = RectangleFactory(newRect).getInstance()
         newRect.setSize(width.toInt(), height.toInt())
+        rectangleList.add(newRect)
         listener.onCreateRectangle(newRect)
     }
 
@@ -20,10 +30,10 @@ class Plane(private val listener: RectangleListener) {
         unSelectRectangle(reversedRectList)
 
         reversedRectList.forEachIndexed { index, rect ->
-            val rectFirstX = rect.getPoint()[0]
-            val rectFirstY = rect.getPoint()[1] + 45
-            val rectSecondX = rectFirstX + rect.getSize()[0]
-            val rectSecondY = rectFirstY + rect.getSize()[1]
+            val rectFirstX = rect.point[0]
+            val rectFirstY = rect.point[1] + 45
+            val rectSecondX = rectFirstX + rect.size[0]
+            val rectSecondY = rectFirstY + rect.size[1]
             val notReversedListIndex = reversedRectList.size - 1 - index
 
             if ((x in rectFirstX..rectSecondX) && (y in rectFirstY..rectSecondY)) {
@@ -45,7 +55,7 @@ class Plane(private val listener: RectangleListener) {
 
     fun updateAlpha(value: Float) {
         rectangleList.forEach {
-            if (it.getStatus()) {
+            if (it.isSelected) {
                 it.setAlpha((value * 25).toInt())
                 listener.onUpdateRectangle()
                 return
@@ -58,7 +68,7 @@ class Plane(private val listener: RectangleListener) {
         val g = (0..255).random()
         val b = (0..255).random()
         rectangleList.forEach {
-            if (it.getStatus()) {
+            if (it.isSelected) {
                 it.setColor(r, g, b)
                 listener.onUpdateRectangle()
                 return

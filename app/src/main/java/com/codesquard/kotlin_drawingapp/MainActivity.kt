@@ -60,8 +60,7 @@ class MainActivity : AppCompatActivity(), TaskContract.TaskView {
                 }
                 val width = dp2px(150f)
                 val height = dp2px(120f)
-                customView.phot = photo
-//                presenter.addNewPhoto(photo, width, height)
+                presenter.addNewRectangle(width, height, photo)
             } else {
                 Snackbar.make(customView, "사진을 불러오지 못하였습니다", Snackbar.LENGTH_SHORT).show()
             }
@@ -134,6 +133,10 @@ class MainActivity : AppCompatActivity(), TaskContract.TaskView {
         alphaSlider.value = alpha
     }
 
+    override fun showEnabledColor(boolean: Boolean) {
+        backgroundBtn.isEnabled = boolean
+    }
+
     override fun updateRect() {
         onClickColorBtn()
         onSlideAlpha()
@@ -154,7 +157,6 @@ class MainActivity : AppCompatActivity(), TaskContract.TaskView {
         val resources = this.resources
         val metrics = resources.displayMetrics
         return dp * (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
-
     }
 }
 

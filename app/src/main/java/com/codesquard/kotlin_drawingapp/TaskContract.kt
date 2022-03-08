@@ -16,19 +16,19 @@ interface TaskContract {
 
         fun showRectAlpha(alpha: Float = 0f)
 
+        fun showEnabledColor(boolean: Boolean)
+
     }
 
     interface Presenter {
 
-        fun addNewRectangle(width: Float, height: Float)
+        fun addNewRectangle(width: Float, height: Float, photo: Bitmap? = null)
 
         fun selectRectangle(x: Float, y: Float)
 
         fun changeAlphaValue(value: Float)
 
         fun changeColor()
-
-        fun addNewPhoto(photo: Bitmap, width: Float, height: Float)
 
     }
 
