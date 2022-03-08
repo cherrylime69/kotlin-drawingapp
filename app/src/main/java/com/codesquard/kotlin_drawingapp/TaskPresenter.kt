@@ -1,5 +1,7 @@
 package com.codesquard.kotlin_drawingapp
 
+import android.graphics.Bitmap
+
 class TaskPresenter(private val taskView: TaskContract.TaskView) : TaskContract.Presenter,
     RectangleListener {
 
@@ -20,6 +22,10 @@ class TaskPresenter(private val taskView: TaskContract.TaskView) : TaskContract.
 
     override fun changeColor() {
         plane.updateColor()
+    }
+
+    override fun addNewPhoto(photo: Bitmap, width: Float, height: Float) {
+        TODO("Not yet implemented")
     }
 
     override fun onCreateRectangle(newRect: Rectangle) {

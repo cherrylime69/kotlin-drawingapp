@@ -1,6 +1,7 @@
 package com.codesquard.kotlin_drawingapp
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -10,6 +11,7 @@ import android.view.View
 class CustomView(context: Context, attr: AttributeSet) : View(context, attr) {
 
     private val rectangleList = mutableListOf<Rectangle>()
+    var phot: Bitmap? = null
 
     fun addNewRect(newRect: Rectangle) {
         rectangleList.add(newRect)
@@ -21,6 +23,12 @@ class CustomView(context: Context, attr: AttributeSet) : View(context, attr) {
     }
 
     private fun drawRectangle(rectangleList: MutableList<Rectangle>, canvas: Canvas?) {
+        phot?.apply {
+            val paint = Paint()
+            paint.color = Color.argb(50, 0, 0, 0)
+            canvas?.drawBitmap(phot!!, 0f, 0f, paint)
+        }
+
         rectangleList.forEach {
             val paint = Paint()
             val alpha = it.getAlpha()
@@ -44,4 +52,6 @@ class CustomView(context: Context, attr: AttributeSet) : View(context, attr) {
             }
         }
     }
+
 }
+

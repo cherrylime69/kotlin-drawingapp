@@ -1,8 +1,11 @@
 package com.codesquard.kotlin_drawingapp
 
+import android.graphics.Bitmap
+
 interface TaskContract {
 
     interface TaskView {
+
         fun showRectangle(newRect: Rectangle)
 
         fun showSelectedRectangle()
@@ -16,6 +19,7 @@ interface TaskContract {
     }
 
     interface Presenter {
+
         fun addNewRectangle(width: Float, height: Float)
 
         fun selectRectangle(x: Float, y: Float)
@@ -23,6 +27,8 @@ interface TaskContract {
         fun changeAlphaValue(value: Float)
 
         fun changeColor()
+
+        fun addNewPhoto(photo: Bitmap, width: Float, height: Float)
 
     }
 
