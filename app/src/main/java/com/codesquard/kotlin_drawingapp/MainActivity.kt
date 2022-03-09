@@ -146,6 +146,7 @@ class MainActivity : AppCompatActivity(), TaskContract.TaskView {
 
     private fun showDraggedRectangle() {
         tempView.setTempRect(null)
+        tempView.invalidate()
         customView.invalidate()
     }
 
