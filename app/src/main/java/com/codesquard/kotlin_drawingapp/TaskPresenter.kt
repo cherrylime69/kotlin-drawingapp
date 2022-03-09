@@ -24,6 +24,10 @@ class TaskPresenter(private val taskView: TaskContract.TaskView) : TaskContract.
         plane.updateColor()
     }
 
+    override fun dragRectangle(x: Float, y: Float) {
+        plane.dragRectangle(x, y)
+    }
+
     override fun onCreateRectangle(newRect: Rectangle) {
         taskView.showRectangle(newRect)
     }
@@ -31,7 +35,7 @@ class TaskPresenter(private val taskView: TaskContract.TaskView) : TaskContract.
     override fun onSelectRectangle(index: Int) {
         selectedRectIndex = index
         if (index > -1) {
-            taskView.updateRect()
+            taskView.updateRectangle()
         }
         getRectAlpha()
         getRectColor()
@@ -41,6 +45,10 @@ class TaskPresenter(private val taskView: TaskContract.TaskView) : TaskContract.
     override fun onUpdateRectangle() {
         getRectColor()
         taskView.showSelectedRectangle()
+    }
+
+    override fun onDragRectangle(tempRect: Rectangle) {
+        taskView.showDraggingRectangle(tempRect)
     }
 
     private fun getRectColor() {

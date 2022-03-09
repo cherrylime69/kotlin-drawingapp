@@ -8,6 +8,7 @@ import android.view.View
 class CustomView(context: Context, attr: AttributeSet) : View(context, attr) {
 
     private val rectangleList = mutableListOf<Rectangle>()
+    private var tempRect: Rectangle? = null
 
     fun addNewRect(newRect: Rectangle) {
         rectangleList.add(newRect)
@@ -50,7 +51,39 @@ class CustomView(context: Context, attr: AttributeSet) : View(context, attr) {
                 canvas?.drawRect(x, y, width, height, paint)
             }
 
+            tempRect?.apply {
+                dragRectangle(tempRect, canvas)
+            }
         }
+    }
+
+    private fun dragRectangle(tempRect: Rectangle?, canvas: Canvas?) {
+        tempRect?.apply temp@{
+            val startX = tempRect.point[0]
+            val startY = tempRect.point[1]
+            val endX = startX + tempRect.size[0]
+            val endY = startX + tempRect.size[1]
+            val paint = Paint().apply {
+                this.color = Color.argb(
+                    this@temp.alphaValue,
+                    this@temp.color[0],
+                    this@temp.color[1],
+                    this@temp.color[2]
+                )
+            }
+
+            if (this is PhotoRectangle) {
+                val photo: Bitmap = this.getPhoto() ?: return
+                val rect = RectF(startX, startY, endX, endY)
+                canvas?.drawBitmap(photo, null, rect, paint)
+            } else {
+                canvas?.drawRect(startX, startY, endX, endY, paint)
+            }
+        }
+    }
+
+    fun setTempRect(tempRect: Rectangle) {
+        this.tempRect = tempRect
     }
 
 }

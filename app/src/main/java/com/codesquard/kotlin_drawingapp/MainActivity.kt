@@ -137,7 +137,12 @@ class MainActivity : AppCompatActivity(), TaskContract.TaskView {
         backgroundBtn.isEnabled = boolean
     }
 
-    override fun updateRect() {
+    override fun showDraggingRectangle(temRectangle: Rectangle) {
+        customView.setTempRect(temRectangle)
+        customView.invalidate()
+    }
+
+    override fun updateRectangle() {
         onClickColorBtn()
         onSlideAlpha()
     }
@@ -146,8 +151,12 @@ class MainActivity : AppCompatActivity(), TaskContract.TaskView {
         val x = event?.x ?: 0f
         val y = event?.y ?: 0f
 
-        if (event?.action == MotionEvent.ACTION_DOWN) {
-            presenter.selectRectangle(x, y)
+        when (event?.action) {
+            MotionEvent.ACTION_DOWN -> presenter.selectRectangle(x, y)
+            MotionEvent.ACTION_MOVE -> {
+                presenter.dragRectangle(x, y)
+            }
+            MotionEvent.ACTION_UP -> return true
         }
 
         return super.onTouchEvent(event)

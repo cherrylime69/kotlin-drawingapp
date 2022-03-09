@@ -16,4 +16,15 @@ class PhotoRectangle : Rectangle {
     fun setBitmap(photo: Bitmap) {
         photoImage = photo
     }
+
+    override fun clone(): PhotoRectangle {
+        val clonedRect = PhotoRectangle()
+        clonedRect.apply {
+            this.color = arrayOf(0, 0, 0)
+            this.size = this@PhotoRectangle.size
+            this.photoImage = this@PhotoRectangle.photoImage
+            this.point = this@PhotoRectangle.point
+        }
+        return clonedRect
+    }
 }

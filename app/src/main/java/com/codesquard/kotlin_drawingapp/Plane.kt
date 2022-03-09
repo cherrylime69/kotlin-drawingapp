@@ -6,6 +6,7 @@ class Plane(private val listener: RectangleListener) {
 
     private val rectangleList = mutableListOf<Rectangle>()
     private lateinit var newRect: Rectangle
+    private var selectedRect: Rectangle? = null
 
     fun createNewRectangle(width: Float, height: Float, photo: Bitmap? = null) {
         photo?.run {
@@ -38,6 +39,7 @@ class Plane(private val listener: RectangleListener) {
 
             if ((x in rectFirstX..rectSecondX) && (y in rectFirstY..rectSecondY)) {
                 rect.isSelected(true)
+                selectedRect = rectangleList[notReversedListIndex]
                 listener.onSelectRectangle(notReversedListIndex)
                 return
             } else {
@@ -47,6 +49,7 @@ class Plane(private val listener: RectangleListener) {
     }
 
     private fun unSelectRectangle(rectList: List<Rectangle>) {
+        selectedRect = null
         rectList.forEach {
             it.isSelected(false)
             listener.onSelectRectangle()
@@ -54,25 +57,28 @@ class Plane(private val listener: RectangleListener) {
     }
 
     fun updateAlpha(value: Float) {
-        rectangleList.forEach {
-            if (it.isSelected) {
-                it.setAlpha((value * 25).toInt())
-                listener.onUpdateRectangle()
-                return
-            }
-        }
+        selectedRect?.apply {
+            this.setAlpha((value * 25).toInt())
+            listener.onUpdateRectangle()
+        } ?: return
     }
 
     fun updateColor() {
         val r = (0..255).random()
         val g = (0..255).random()
         val b = (0..255).random()
-        rectangleList.forEach {
-            if (it.isSelected) {
-                it.setColor(r, g, b)
-                listener.onUpdateRectangle()
-                return
-            }
+        selectedRect?.apply {
+            this.setColor(r, g, b)
+            listener.onUpdateRectangle()
+        } ?: return
+    }
+
+    fun dragRectangle(x: Float, y: Float) {
+        val clonedRect = selectedRect?.clone() ?: return
+        clonedRect.apply {
+            this.point[0] = x
+            this.point[1] = y - 45
         }
+        listener.onDragRectangle(clonedRect)
     }
 }

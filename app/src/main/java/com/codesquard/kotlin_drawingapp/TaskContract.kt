@@ -10,13 +10,15 @@ interface TaskContract {
 
         fun showSelectedRectangle()
 
-        fun updateRect()
+        fun updateRectangle()
 
         fun showRectColor(color: String = "")
 
         fun showRectAlpha(alpha: Float = 0f)
 
         fun showEnabledColor(boolean: Boolean)
+
+        fun showDraggingRectangle(temRect: Rectangle)
 
     }
 
@@ -29,6 +31,8 @@ interface TaskContract {
         fun changeAlphaValue(value: Float)
 
         fun changeColor()
+
+        fun dragRectangle(x: Float, y: Float)
 
     }
 
