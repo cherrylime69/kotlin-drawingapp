@@ -34,10 +34,11 @@ class CustomView(context: Context, attr: AttributeSet) : View(context, attr) {
             paint.color = Color.argb(alpha, r, g, b)
 
             if (it.isSelected) {
-                val strokePaint = Paint()
-                strokePaint.style = Paint.Style.STROKE
-                strokePaint.color = Color.rgb(r, g, b)
-                strokePaint.strokeWidth = 10f
+                val strokePaint = Paint().apply {
+                    color = Color.rgb(r, g, b)
+                    style = Paint.Style.STROKE
+                    strokeWidth = 10f
+                }
                 canvas?.drawRect(x, y, width, height, strokePaint)
             }
 
