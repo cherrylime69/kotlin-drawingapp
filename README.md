@@ -191,3 +191,5 @@ registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
 
 > 결과
 >> ![](../../../image/Android/Week09_drawingapp/5.gif)
+> 
+> 테스트
