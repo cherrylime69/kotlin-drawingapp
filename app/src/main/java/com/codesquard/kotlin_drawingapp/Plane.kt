@@ -1,6 +1,7 @@
 package com.codesquard.kotlin_drawingapp
 
 import android.graphics.Bitmap
+import android.util.Log
 
 class Plane(private val listener: RectangleListener) {
 
@@ -74,11 +75,10 @@ class Plane(private val listener: RectangleListener) {
     }
 
     fun dragRectangle(x: Float, y: Float) {
-        val clonedRect = selectedRect?.clone() ?: return
-        clonedRect.apply {
+        selectedRect?.run {
             this.point[0] = x
             this.point[1] = y - 45
-        }
-        listener.onDragRectangle(clonedRect)
+            listener.onDragRectangle(selectedRect)
+        } ?: return
     }
 }

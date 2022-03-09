@@ -18,7 +18,7 @@ interface TaskContract {
 
         fun showEnabledColor(boolean: Boolean)
 
-        fun showDraggingRectangle(temRect: Rectangle)
+        fun showDraggingRectangle(tempRect: Rectangle?)
 
     }
 

@@ -47,7 +47,7 @@ class TaskPresenter(private val taskView: TaskContract.TaskView) : TaskContract.
         taskView.showSelectedRectangle()
     }
 
-    override fun onDragRectangle(tempRect: Rectangle) {
+    override fun onDragRectangle(tempRect: Rectangle?) {
         taskView.showDraggingRectangle(tempRect)
     }
 

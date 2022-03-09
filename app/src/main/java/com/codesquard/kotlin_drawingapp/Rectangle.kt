@@ -32,6 +32,4 @@ interface Rectangle {
         this.isSelected = boolean
     }
 
-    fun clone(): Rectangle
-
 }

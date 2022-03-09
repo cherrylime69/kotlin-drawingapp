@@ -25,13 +25,15 @@ class MainActivity : AppCompatActivity(), TaskContract.TaskView {
     private lateinit var photoBtn: Button
     private lateinit var presenter: TaskContract.Presenter
     private lateinit var customView: CustomView
+    private lateinit var tempView: TemporaryView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         mainLayout = findViewById(R.id.main_layout)
-        customView = findViewById(R.id.customView)
+        customView = findViewById(R.id.custom_view)
+        tempView = findViewById(R.id.temporary_view)
         backgroundBtn = findViewById(R.id.background_btn)
         photoBtn = findViewById(R.id.photo_btn)
         alphaSlider = findViewById(R.id.slider_alpha)
@@ -137,8 +139,13 @@ class MainActivity : AppCompatActivity(), TaskContract.TaskView {
         backgroundBtn.isEnabled = boolean
     }
 
-    override fun showDraggingRectangle(temRectangle: Rectangle) {
-        customView.setTempRect(temRectangle)
+    override fun showDraggingRectangle(tempRect: Rectangle?) {
+        tempView.setTempRect(tempRect)
+        tempView.invalidate()
+    }
+
+    private fun showDraggedRectangle() {
+        tempView.setTempRect(null)
         customView.invalidate()
     }
 
@@ -156,9 +163,8 @@ class MainActivity : AppCompatActivity(), TaskContract.TaskView {
             MotionEvent.ACTION_MOVE -> {
                 presenter.dragRectangle(x, y)
             }
-            MotionEvent.ACTION_UP -> return true
+            MotionEvent.ACTION_UP -> showDraggedRectangle()
         }
-
         return super.onTouchEvent(event)
     }
 

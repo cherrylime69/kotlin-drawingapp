@@ -31,13 +31,19 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toEndOf="@id/create_btn"/>
   <com.codesquard.kotlin_drawingapp.CustomView
-    android:id="@+id/customView"
+    android:id="@+id/custom_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintEnd_toStartOf="@+id/second_constraintLayout"
     app:layout_constraintBottom_toTopOf="@+id/create_btn"/>
+  <com.codesquard.kotlin_drawingapp.TemporaryView
+    android:id="@+id/temporary_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
   <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/second_constraintLayout"
     android:layout_width="150dp"

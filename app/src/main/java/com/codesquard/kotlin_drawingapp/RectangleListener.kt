@@ -8,6 +8,6 @@ interface RectangleListener {
 
     fun onUpdateRectangle()
 
-    fun onDragRectangle(tempRect: Rectangle)
+    fun onDragRectangle(tempRect: Rectangle?)
 
 }
